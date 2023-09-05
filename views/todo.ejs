@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo app</title>
+  </head>
+  <body>
+    <div>
+      <form action="/post-todo" method="POST">
+        <label for="name">Name:</label>
+        <input id="name" name="name" type="text" />
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" />
+        <button type="submit">Add item</button>
+      </form>
+    </div>
+    <div>
+      <h1>Todos</h1>
+      <% for(let todo of todos){ %> <% if (todo.status=='incomplete'){%>
+      <li>
+        <span><b>Name:</b><%= todo.name %></span>
+        <span><b>Description:</b><%= todo.description %></span>
+        <form
+          action="/post-complete-todo/<%= todo.id%>"
+          method="POST"
+          style="display: inline"
+        >
+          <button>Done</button>
+        </form>
+        <form
+          action="/delete-todo/<%=todo.id%>"
+          method="POST"
+          style="display: inline"
+        >
+          <button>Delete</button>
+        </form>
+      </li>
+      <% } %> <% } %>
+    </div>
+    <div>
+      <h1>Completed Todos</h1>
+      <% for(let todo of todos){ %> <%if( todo.status=='completed'){%>
+      <li>
+        <span><b>Name:</b><%= todo.name %></span>
+        <span><b>Description:</b><%= todo.description %></span>
+      </li>
+      <% } %> <% } %>
+    </div>
+  </body>
+</html>
